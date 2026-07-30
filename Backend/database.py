@@ -18,10 +18,50 @@ def create_database():
             debit REAL,
             credit REAL,
             balance REAL,
-            category TEXT,
-            mode TEXT
+            category TEXT
         )
     """)
 
     conn.commit()
     conn.close()
+
+def store_transactions(df):
+    conn = sqlite3.connect(DATABASE_NAME)
+    cursor = conn.cursor()
+
+    for _, row in df.iterrows():
+        cursor.execute("""
+            INSERT OR REPLACE INTO transactions (
+                transaction_id,
+                date,
+                description,
+                debit,
+                credit,
+                balance,
+                category
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            row["Transaction_ID"],
+            row["Date"],
+            row["Description"],
+            row["Debit"],
+            row["Credit"],
+            row["Balance"],
+            row["Category"]
+        ))
+
+    conn.commit()
+    conn.close()
+def get_transactions():
+    conn = sqlite3.connect(DATABASE_NAME)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM transactions")
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]

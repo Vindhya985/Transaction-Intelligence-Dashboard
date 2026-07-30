@@ -1,21 +1,41 @@
 from fastapi import FastAPI, UploadFile, File
-from Backend.database import create_database
 import pandas as pd
+
+from Backend.database import (
+    create_database,
+    store_transactions,
+    get_transactions
+)
+from ML.main import preprocessing
 
 app = FastAPI()
 
+# Create the database when FastAPI starts
+create_database()
+
+
 @app.post("/upload")
 async def upload_csv(file: UploadFile = File(...)):
+    try:
+        # Read uploaded CSV
+        df = pd.read_csv(file.file)
 
-    df = pd.read_csv(file.file)
+        # Preprocess the data
+        processed_df = preprocessing(df)
 
-    df = df.fillna("")
+        # Store the processed data into SQLite
+        store_transactions(processed_df)
 
-    return {
-        "success": True,
-        "rows": len(df),
-        "columns": list(df.columns),
-        "preview": df.head().to_dict(orient="records")
-    }
+        return {
+            "message": "Transactions uploaded and stored successfully.",
+            "rows_inserted": len(processed_df)
+        }
 
-create_database()
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+
+@app.get("/transactions")
+async def read_transactions():
+    return get_transactions()

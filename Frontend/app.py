@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import pandas as pd
 
 st.set_page_config(
     page_title="Transaction Intelligence Dashboard",
@@ -42,6 +43,17 @@ if uploaded_file is not None:
             "http://127.0.0.1:8000/upload",
             files=files
         )
+        if response.status_code == 200:
+            st.success("File uploaded successfully!")
+        transactions = requests.get(
+            "http://127.0.0.1:8000/transactions"
+        )
+        if transactions.status_code == 200:
+            df = pd.DataFrame(transactions.json())
+
+            st.subheader("Stored Transactions")
+
+            st.dataframe(df)
 
     except requests.exceptions.ConnectionError:
         st.error("❌ Could not connect to the backend. Is FastAPI running?")
@@ -57,21 +69,5 @@ if uploaded_file is not None:
         data = response.json()
 
         st.success("✅ CSV uploaded successfully!")
-
-        st.subheader("Preview")
-
-        st.dataframe(
-            data["preview"],
-            use_container_width=True
-        )
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.metric("Transactions", data["rows"])
-
-        with col2:
-            st.metric("Columns", len(data["columns"]))
-
     else:
         st.error("❌ Backend failed to process the CSV.")
