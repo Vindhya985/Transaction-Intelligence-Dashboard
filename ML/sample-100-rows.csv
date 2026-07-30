@@ -1,0 +1,6 @@
+Date,Description,Debit,Credit,Balance,Category,Mode,Transaction_ID
+2026-01-01,Flipkart,4548.67,,20451.33,Shopping,NEFT,TXN100000
+2026-01-02,  flipkart  ,633.4,,19817.93,Shopping,IMPS,TXN100001
+2026-01-03,BookMyShow,4937.89,,14880.04,Entertainment,UPI,TXN100002
+2026-01-04,IRCTC,4130.65,,10749.39,Travel,NEFT,TXN100003
+2026-01-05,BookMyShow,2484.44,,8264.95,Entertainment,Net Banking,TXN100004
