@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
+from Backend.database import create_database
 import pandas as pd
 
 app = FastAPI()
@@ -16,3 +17,5 @@ async def upload_csv(file: UploadFile = File(...)):
         "columns": list(df.columns),
         "preview": df.head().to_dict(orient="records")
     }
+
+create_database()
