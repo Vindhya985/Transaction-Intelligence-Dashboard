@@ -44,8 +44,7 @@ def validate(df):
     assert df['Credit'].isnull().sum() == 0, "Missing values found in Credit column!"
 
 
-def preprocessing(file_path):
-    df = pd.read_csv(file_path)
+def preprocessing(df):
 
     df = fill_missing_financials(df)
     df = fill_missing_descriptions(df)
