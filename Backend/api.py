@@ -1,8 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
 import pandas as pd
-from ML.analytics import (
-    prepare_chart_data
-)
 
 from Backend.database import (
     create_database,
@@ -25,9 +22,7 @@ async def upload_csv(file: UploadFile = File(...)):
 
         # Preprocess the data
         processed_df = preprocessing(df)
-        charts = prepare_chart_data(
-            processed_df
-        )
+       
 
         # Store the processed data into SQLite
         store_transactions(processed_df)
