@@ -53,8 +53,8 @@ def prepare_monthly_chart(df):
 
 
     monthly = (
-        df.groupby(
-            df["Date"].dt.to_period("M")
+        monthly_df.groupby(
+            monthly_df["Date"].dt.to_period("M")
         )["Debit"]
         .sum()
         .reset_index()
