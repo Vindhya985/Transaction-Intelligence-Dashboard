@@ -57,6 +57,13 @@ if uploaded_file is not None:
             analytics_response = requests.get(
                 "http://127.0.0.1:8000/analytics"
             )
+            anomaly_response = requests.get(
+                "http://127.0.0.1:8000/anomalies"
+            )
+
+            anomaly_df = pd.DataFrame(
+                anomaly_response.json()
+            )
 
             if summary_response.status_code != 200:
                 st.error("Failed to load summary.")
@@ -199,24 +206,61 @@ if uploaded_file is not None:
         - 📄 Total Transactions: **{summary['num_transactions']}**
         """
         )    
-        
-        
-                
+        st.divider()
+
+        st.subheader("🚨 Anomaly Detection")
+
+        if not anomaly_df.empty:
+
+            st.warning(
+                f"⚠️ {len(anomaly_df)} suspicious transaction(s) detected."
+            )
+
+        else:
+
+            st.success(
+                "✅ No suspicious transactions detected."
+            )
+
+        # ⬇️ Replace your old table code with this
+        st.subheader("🚨 Suspicious Transactions")
+
+        display_df = anomaly_df[
+            [
+                "Date",
+                "Description",
+                "Debit",
+                "Credit",
+                "Balance",
+                "Category",
+                "Anomaly_Status"
+            ]
+        ].rename(
+            columns={
+                "Anomaly_Status": "Status"
+            }
+        )
+
+        st.dataframe(
+            display_df,
+            use_container_width=True
+        )
         if transactions.status_code == 200:
             df = pd.DataFrame(transactions.json())
-            st.subheader("🔍 Filters")
             
-            selected_category = st.selectbox(
-                        "Category",
-                        ["All"] + sorted(df["category"].unique())
-                    )
-            filtered_df = df.copy()
-            
-            if selected_category != "All":
-                    filtered_df = filtered_df[
-                    filtered_df["category"] == selected_category
-                    ]
             st.divider()
+            st.subheader("🔍 Filters")
+                        
+            selected_category = st.selectbox(
+                                    "Category",
+                                    ["All"] + sorted(df["category"].unique())
+                                )
+            filtered_df = df.copy()
+                        
+            if selected_category != "All":
+                                filtered_df = filtered_df[
+                                filtered_df["category"] == selected_category
+                                ]
             st.write(f"Showing **{len(filtered_df)}** transaction(s)")
 
             st.subheader("📄 Recent Transactions")

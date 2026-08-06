@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 import pandas as pd
-
+from ML.anomaly import get_flagged_transactions
 from Backend.database import (
     create_database,
     store_transactions,
@@ -49,7 +49,28 @@ async def analytics():
     })
 
     return prepare_chart_data(df)
+@app.get("/anomalies")
+async def anomalies():
 
+    transactions = get_transactions()
+
+    df = pd.DataFrame(transactions)
+
+    df = df.rename(columns={
+        "transaction_id": "Transaction_ID",
+        "date": "Date",
+        "description": "Description",
+        "debit": "Debit",
+        "credit": "Credit",
+        "balance": "Balance",
+        "category": "Category"
+    })
+
+    anomalies = get_flagged_transactions(df)
+
+    return anomalies.to_dict(
+        orient="records"
+    )
 # Create the database when FastAPI starts
 create_database()
 
