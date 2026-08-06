@@ -7,8 +7,48 @@ from Backend.database import (
     get_transactions
 )
 from ML.main import preprocessing
-
+from ML.analytics import (
+    get_transaction_summary,
+    prepare_chart_data
+)
 app = FastAPI()
+@app.get("/summary")
+async def summary():
+
+    transactions = get_transactions()
+
+    df = pd.DataFrame(transactions)
+    df = df.rename(columns={
+        "transaction_id": "Transaction_ID",
+        "date": "Date",
+        "description": "Description",
+        "debit": "Debit",
+        "credit": "Credit",
+        "balance": "Balance",
+        "category": "Category"
+    })
+
+    return get_transaction_summary(df)
+
+
+@app.get("/analytics")
+async def analytics():
+
+    transactions = get_transactions()
+
+    df = pd.DataFrame(transactions)
+
+    df = df.rename(columns={
+        "transaction_id": "Transaction_ID",
+        "date": "Date",
+        "description": "Description",
+        "debit": "Debit",
+        "credit": "Credit",
+        "balance": "Balance",
+        "category": "Category"
+    })
+
+    return prepare_chart_data(df)
 
 # Create the database when FastAPI starts
 create_database()
