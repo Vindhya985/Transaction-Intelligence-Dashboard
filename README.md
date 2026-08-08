@@ -15,23 +15,23 @@ Frontend & API Layer *(Interface & Services)*
 * **Interactive Streamlit Dashboard:** Provides a responsive UI with real-time financial summaries, interactive charts, and flagged anomaly views.
 
 Project Structure-
-
-Transaction-Intelligence-Dashboard/
-├── Backend/
-│   └── api.py                  # FastAPI server & REST API endpoints
-├── Frontend/
-│   └── app.py                  # Streamlit dashboard & UI layout
-├── Data/
-│   ├── sample-100-rows.csv     # Raw input datasets
-│   └── cleaned_sample_...csv   # Preprocessed output datasets
-├── ML/
-│   ├── main.py                 # Data preprocessing pipeline
-│   ├── analytics.py            # Financial metric calculation engine
-│   ├── anomaly.py              # ML IsolationForest anomaly detection model
-│   ├── test_analytics.py      # Test suite for analytics module
-│   └── test_anomaly.py        # Test suite for ML anomaly detection
-├── requirements.txt            # Project dependencies
-└── README.md                   # Project documentation
+                                                                                                                                                                                                      
+Transaction-Intelligence-Dashboard/                                                                                                                                                                   
+├── Backend/                                                                                                                                                                                          
+│   └── api.py                  # FastAPI server & REST API endpoints                                                                                                                                 
+├── Frontend/                                                                                                                                                                                         
+│   └── app.py                  # Streamlit dashboard & UI layout                                                                                                                                     
+├── Data/                                                                                                                                                                                             
+│   ├── sample-100-rows.csv     # Raw input datasets                                                                                                                                                  
+│   └── cleaned_sample_...csv   # Preprocessed output datasets                                                                                                                                        
+├── ML/                                                                                                                                                                                               
+│   ├── main.py                 # Data preprocessing pipeline                                                                                                                                         
+│   ├── analytics.py            # Financial metric calculation engine                                                                                                                                 
+│   ├── anomaly.py              # Isolation Forest anomaly detection model                                                                                                                            
+│   ├── test_analytics.py      # Test suite for analytics module                                                                                                                                      
+│   └── test_anomaly.py        # Test suite for ML anomaly detection                                                                                                                                  
+├── requirements.txt            # Project dependencies                                                                                                                                                
+└── README.md                   # Project documentation                                                                                                                                               
 
 
 Tech stack -
