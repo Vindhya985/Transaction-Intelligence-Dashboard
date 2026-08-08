@@ -1,4 +1,4 @@
-Transaction Intelligence Dashboard
+##Transaction Intelligence Dashboard
 
 An end-to-end financial analytics and fraud detection platform. The system ingests raw transaction data, processes core financial metrics, and uses Machine Learning to detect potential anomalies or unauthorized transactions.
 
