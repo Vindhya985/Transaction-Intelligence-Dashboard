@@ -2,7 +2,8 @@ Transaction Intelligence Dashboard
 
 An end-to-end financial analytics and fraud detection platform. The system ingests raw transaction data, processes core financial metrics, and uses Machine Learning to detect potential anomalies or unauthorized transactions.
 
- Key Features & Division of Work-
+
+## Key Features & Division of Work-
 
 Backend & Machine Learning Engine *(ML & Core Logic)*
 * **Data Ingestion & Cleaning:** Standardizes raw transaction CSVs, cleans missing fields, and handles numerical formatting.
@@ -14,7 +15,8 @@ Frontend & API Layer *(Interface & Services)*
 * **FastAPI Backend:** Exposes RESTful API endpoints for seamless data flow between the ML engine and user interface.
 * **Interactive Streamlit Dashboard:** Provides a responsive UI with real-time financial summaries, interactive charts, and flagged anomaly views.
 
-Project Structure-
+
+## Project Structure-
                                                                                                                                                                                                       
 Transaction-Intelligence-Dashboard/                                                                                                                                                                   
 ├── Backend/                                                                                                                                                                                          
@@ -31,10 +33,10 @@ Transaction-Intelligence-Dashboard/
 │   ├── test_analytics.py      # Test suite for analytics module                                                                                                                                      
 │   └── test_anomaly.py        # Test suite for ML anomaly detection                                                                                                                                  
 ├── requirements.txt            # Project dependencies                                                                                                                                                
-└── README.md                   # Project documentation                                                                                                                                               
+└── README.md                   # Project documentation                                                                                                                                            
 
 
-Tech stack -
+## Tech stack -
 Language: Python 3.10+
 Data Science & ML: pandas, numpy, scikit-learn (IsolationForest)
 Backend API: FastAPI / Uvicorn
@@ -42,9 +44,17 @@ Frontend UI: Streamlit
 Version Control: Git & GitHub
 
 
-Machine Learning Architecture
+## Machine Learning Architecture
 The anomaly detection module (ML/anomaly.py) uses an Isolation Forest model designed for unsupervised outlier detection:
 Dynamic Feature Selection: Pulls numerical fields (Debit, Credit, Balance) adaptively across different dataset schemas.
 Model Training: Fits the model using a sensitivity threshold (contamination=0.05).
 Output Mapping: Converts raw outputs (1 for normal, -1 for anomaly) into human-readable 'normal' and 'Anomaly' labels.
 Data Filtering: Uses get_flagged_transactions() to deliver tagged anomalies directly to the FastAPI layer for Streamlit rendering.
+
+
+## Contributors
+
+This project was collaboratively developed by:
+
+- **[Vindhya Shivam](https://github.com/VindhyaShivam)** — Backend & Frontend integration, FastAPI, Streamlit dashboard, analytics visualization, filters, and anomaly detection UI.
+- **[Nishika Raj](https://github.com/NishikaRaj)** — Machine Learning, Isolation Forest anomaly detection, testing, analytics, and ML pipeline.
