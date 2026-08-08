@@ -44,12 +44,12 @@ Frontend UI: Streamlit
 Version Control: Git & GitHub
 
 
-## Machine Learning Architecture
-The anomaly detection module (ML/anomaly.py) uses an Isolation Forest model designed for unsupervised outlier detection:
-Dynamic Feature Selection: Pulls numerical fields (Debit, Credit, Balance) adaptively across different dataset schemas.
-Model Training: Fits the model using a sensitivity threshold (contamination=0.05).
-Output Mapping: Converts raw outputs (1 for normal, -1 for anomaly) into human-readable 'normal' and 'Anomaly' labels.
-Data Filtering: Uses get_flagged_transactions() to deliver tagged anomalies directly to the FastAPI layer for Streamlit rendering.
+## Machine Learning Architecture                                                                                                                                                                      
+The anomaly detection module (ML/anomaly.py) uses an Isolation Forest model designed for unsupervised outlier detection:                                                                              
+Dynamic Feature Selection: Pulls numerical fields (Debit, Credit, Balance) adaptively across different dataset schemas.                                                                               
+Model Training: Fits the model using a sensitivity threshold (contamination=0.05).                                                                                                                    
+Output Mapping: Converts raw outputs (1 for normal, -1 for anomaly) into human-readable 'normal' and 'Anomaly' labels.                                                                                
+Data Filtering: Uses get_flagged_transactions() to deliver tagged anomalies directly to the FastAPI layer for Streamlit rendering.                                                                    
 
 
 ## Contributors
